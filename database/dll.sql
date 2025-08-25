@@ -6,7 +6,7 @@ USE campus_love;
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
-    edad INT NOT NULL CHECK (edad >= 18 AND edad <= 45),
+    edad INT NOT NULL CHECK (edad >= 15 AND edad <= 45),
     genero ENUM('Masculino','Femenino','Otro') NOT NULL,
     carrera VARCHAR(100) NOT NULL,
     frase_perfil TEXT,
