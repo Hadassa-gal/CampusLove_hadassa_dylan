@@ -14,10 +14,14 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 <<<<<<< HEAD
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f316bd257b21f7bb8ee02ae1623e41888e4c2dda")]
 =======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9e8bee538dca138dc720d184085a91a08450ea2")]
 >>>>>>> feature/Hadassa-2
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+243b541f1588c5765353c16c74c6017fda355302")]
+>>>>>>> feature/Dylan-3
 [assembly: System.Reflection.AssemblyProductAttribute("CampusLove_hadassa_dylan")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CampusLove_hadassa_dylan")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

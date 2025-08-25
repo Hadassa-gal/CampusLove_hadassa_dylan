@@ -2,6 +2,9 @@
   "format": 1,
   "restore": {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feature/Dylan-3
     "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj": {}
   },
   "projects": {
@@ -16,6 +19,7 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config"
+<<<<<<< HEAD
 =======
     "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj": {}
   },
@@ -32,6 +36,8 @@
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config"
 >>>>>>> feature/Hadassa-2
+=======
+>>>>>>> feature/Dylan-3
         ],
         "originalTargetFrameworks": [
           "net9.0"

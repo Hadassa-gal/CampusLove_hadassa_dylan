@@ -4506,15 +4506,22 @@
   },
   "packageFolders": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "C:\\Users\\USUARIO\\.nuget\\packages\\": {}
 =======
     "C:\\Users\\HP\\.nuget\\packages\\": {}
 >>>>>>> feature/Hadassa-2
+=======
+    "C:\\Users\\USUARIO\\.nuget\\packages\\": {}
+>>>>>>> feature/Dylan-3
   },
   "project": {
     "version": "1.0.0",
     "restore": {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feature/Dylan-3
       "projectUniqueName": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
       "projectName": "CampusLove_hadassa_dylan",
       "projectPath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
@@ -4523,6 +4530,7 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config"
+<<<<<<< HEAD
 =======
       "projectUniqueName": "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
       "projectName": "CampusLove_hadassa_dylan",
@@ -4533,6 +4541,8 @@
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config"
 >>>>>>> feature/Hadassa-2
+=======
+>>>>>>> feature/Dylan-3
       ],
       "originalTargetFrameworks": [
         "net9.0"

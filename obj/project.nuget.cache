@@ -1,6 +1,9 @@
 {
   "version": 2,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feature/Dylan-3
   "dgSpecHash": "krH+Sfqjklo=",
   "success": true,
   "projectFilePath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
@@ -78,6 +81,7 @@
     "C:\\Users\\USUARIO\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\USUARIO\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512",
     "C:\\Users\\USUARIO\\.nuget\\packages\\zstdsharp.port\\0.8.5\\zstdsharp.port.0.8.5.nupkg.sha512"
+<<<<<<< HEAD
 =======
   "dgSpecHash": "sGkcyoRC+oY=",
   "success": true,
@@ -157,6 +161,8 @@
     "C:\\Users\\HP\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\zstdsharp.port\\0.8.5\\zstdsharp.port.0.8.5.nupkg.sha512"
 >>>>>>> feature/Hadassa-2
+=======
+>>>>>>> feature/Dylan-3
   ],
   "logs": []
 }
