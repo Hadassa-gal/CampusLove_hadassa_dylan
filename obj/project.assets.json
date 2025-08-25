@@ -4505,11 +4505,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\USUARIO\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\HP\\.nuget\\packages\\": {}
+>>>>>>> feature/Hadassa-2
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
       "projectName": "CampusLove_hadassa_dylan",
       "projectPath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
@@ -4518,6 +4523,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+      "projectUniqueName": "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
+      "projectName": "CampusLove_hadassa_dylan",
+      "projectPath": "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
+      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> feature/Hadassa-2
       ],
       "originalTargetFrameworks": [
         "net9.0"
