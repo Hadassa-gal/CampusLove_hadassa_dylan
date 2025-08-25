@@ -1,11 +1,10 @@
-using Microsoft.EntityFrameworkCore;
 using CampusLove_hadassa_dylan.src.Modules.Users.Domain.Entities;
-using CampusLove_hadassa_dylan.src.Modules.Users.Application.Interfaces.Repository;
 using CampusLove_hadassa_dylan.src.Shared.Context;
+using Microsoft.EntityFrameworkCore;
 
-namespace CampusLove_hadassa_dylan.src.Modules.Users.Infrastructure.Repository;
-
-public class UserRepository : IUserRepository
+namespace CampusLove_hadassa_dylan.src.Modules.Users.Infrastructure
+{
+    public class UserRepository
     {
         private readonly AppDbContext _context;
 
@@ -14,203 +13,60 @@ public class UserRepository : IUserRepository
             _context = context;
         }
 
-        public int CrearUsuario(Userss usuario)
+        public async Task<User> CreateAsync(User user)
         {
-            using var connection = new MySqlConnection(_connectionString);
-            connection.Open();
-
-            var query = @"INSERT INTO usuarios (nombre, edad, genero, carrera, frase_perfil) 
-                         VALUES (@nombre, @edad, @genero, @carrera, @frasePerfil);
-                         SELECT LAST_INSERT_ID();";
-
-            using var command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@nombre", usuario.Nombre);
-            command.Parameters.AddWithValue("@edad", usuario.Edad);
-            command.Parameters.AddWithValue("@genero", usuario.Genero);
-            command.Parameters.AddWithValue("@carrera", usuario.Carrera);
-            command.Parameters.AddWithValue("@frasePerfil", usuario.FrasePerfil ?? "");
-
-            var userId = Convert.ToInt32(command.ExecuteScalar());
-            
-            // Agregar intereses si existen
-            if (usuario.Intereses.Any())
-            {
-                AgregarIntereses(userId, usuario.Intereses);
-            }
-
-            return userId;
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return user;
         }
 
-        public Userss ObtenerUsuario(int id)
+        public async Task<User?> GetByIdAsync(int id)
         {
-            using var connection = new MySqlConnection(_connectionString);
-            connection.Open();
-
-            var query = @"SELECT id, nombre, edad, genero, carrera, frase_perfil, 
-                                creditos_interaccion, ultima_recarga_creditos, 
-                                likes_recibidos, fecha_registro, activo 
-                         FROM usuarios WHERE id = @id AND activo = TRUE";
-
-            using var command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id", id);
-
-            using var reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                var usuario = new Userss
-                {
-                    Id = reader.GetInt32("id"),
-                    Nombre = reader.GetString("nombre"),
-                    Edad = reader.GetInt32("edad"),
-                    Genero = reader.GetString("genero"),
-                    Carrera = reader.GetString("carrera"),
-                    FrasePerfil = reader.GetString("frase_perfil"),
-                    CreditosInteraccion = reader.GetInt32("creditos_interaccion"),
-                    UltimaRecargaCreditos = reader.GetDateTime("ultima_recarga_creditos"),
-                    LikesRecibidos = reader.GetInt32("likes_recibidos"),
-                    FechaRegistro = reader.GetDateTime("fecha_registro"),
-                    Activo = reader.GetBoolean("activo")
-                };
-                
-                reader.Close();
-                usuario.Intereses = ObtenerIntereses(id);
-                return usuario;
-            }
-
-            return null;
+            return await _context.Users.FindAsync(id);
         }
 
-        public List<Userss> ObtenerUsuariosDisponibles(int usuarioId, int limite = 10)
+        public async Task<List<User>> GetAllAsync()
         {
-            using var connection = new MySqlConnection(_connectionString);
-            connection.Open();
-
-            using var command = new MySqlCommand("ObtenerUsuariosDisponibles", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("p_usuario_id", usuarioId);
-            command.Parameters.AddWithValue("p_limite", limite);
-
-            var usuarios = new List<Userss>();
-            using var reader = command.ExecuteReader();
-            
-            while (reader.Read())
-            {
-                var usuario = new Userss
-                {
-                    Id = reader.GetInt32("id"),
-                    Nombre = reader.GetString("nombre"),
-                    Edad = reader.GetInt32("edad"),
-                    Genero = reader.GetString("genero"),
-                    Carrera = reader.GetString("carrera"),
-                    FrasePerfil = reader.GetString("frase_perfil"),
-                    CreditosInteraccion = reader.GetInt32("creditos_interaccion"),
-                    LikesRecibidos = reader.GetInt32("likes_recibidos")
-                };
-                usuarios.Add(usuario);
-            }
-            
-            reader.Close();
-            
-            // Obtener intereses para cada usuario
-            foreach (var usuario in usuarios)
-            {
-                usuario.Intereses = ObtenerIntereses(usuario.Id);
-            }
-
-            return usuarios;
+            return await _context.Users
+                .Where(u => u.Activo)
+                .OrderBy(u => u.Nombre)
+                .ToListAsync();
         }
 
-        public bool ActualizarCreditos(int usuarioId)
+        public async Task<List<User>> GetByCarreraAsync(string carrera)
         {
-            using var connection = new MySqlConnection(_connectionString);
-            connection.Open();
-
-            using var command = new MySqlCommand("ActualizarCreditosDiarios", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("p_usuario_id", usuarioId);
-
-            command.ExecuteNonQuery();
-            return true;
+            return await _context.Users
+                .Where(u => u.Activo && u.Carrera.Contains(carrera))
+                .ToListAsync();
         }
 
-        public bool TieneCreditos(int usuarioId)
+        public async Task<User?> UpdateAsync(User user)
         {
-            ActualizarCreditos(usuarioId);
-            
-            using var connection = new MySqlConnection(_connectionString);
-            connection.Open();
-
-            var query = "SELECT creditos_interaccion FROM usuarios WHERE id = @id";
-            using var command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id", usuarioId);
-
-            var creditos = Convert.ToInt32(command.ExecuteScalar());
-            return creditos > 0;
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return user;
         }
 
-        public void AgregarIntereses(int usuarioId, List<string> intereses)
+        public async Task<bool> DeleteAsync(int id)
         {
-            using var connection = new MySqlConnection(_connectionString);
-            connection.Open();
-
-            foreach (var interes in intereses)
+            var user = await GetByIdAsync(id);
+            if (user != null)
             {
-                var query = @"INSERT IGNORE INTO usuario_intereses (usuario_id, interes) 
-                             VALUES (@usuarioId, @interes)";
-                using var command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@usuarioId", usuarioId);
-                command.Parameters.AddWithValue("@interes", interes.Trim().ToLower());
-                command.ExecuteNonQuery();
+                user.Activo = false; // Soft delete
+                await _context.SaveChangesAsync();
+                return true;
             }
+            return false;
         }
 
-        public List<string> ObtenerIntereses(int usuarioId)
+        public async Task<List<User>> GetUsersWithSimilarInterestsAsync(List<string> intereses)
         {
-            using var connection = new MySqlConnection(_connectionString);
-            connection.Open();
+            var users = await _context.Users
+                .Where(u => u.Activo)
+                .ToListAsync();
 
-            var query = "SELECT interes FROM usuario_intereses WHERE usuario_id = @usuarioId";
-            using var command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@usuarioId", usuarioId);
-
-            var intereses = new List<string>();
-            using var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                intereses.Add(reader.GetString("interes"));
-            }
-
-            return intereses;
-        }
-
-        public List<Userss> ObtenerTodosLosUsuarios()
-        {
-            using var connection = new MySqlConnection(_connectionString);
-            connection.Open();
-
-            var query = @"SELECT id, nombre, edad, genero, carrera, frase_perfil, 
-                                creditos_interaccion, likes_recibidos 
-                         FROM usuarios WHERE activo = TRUE ORDER BY nombre";
-
-            using var command = new MySqlCommand(query, connection);
-            var usuarios = new List<Userss>();
-
-            using var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                usuarios.Add(new Userss
-                {
-                    Id = reader.GetInt32("id"),
-                    Nombre = reader.GetString("nombre"),
-                    Edad = reader.GetInt32("edad"),
-                    Genero = reader.GetString("genero"),
-                    Carrera = reader.GetString("carrera"),
-                    FrasePerfil = reader.GetString("frase_perfil"),
-                    CreditosInteraccion = reader.GetInt32("creditos_interaccion"),
-                    LikesRecibidos = reader.GetInt32("likes_recibidos")
-                });
-            }
-
-            return usuarios;
+            // Filtrar por intereses similares en memoria (debido a la conversión de List<string>)
+            return users.Where(u => u.Intereses.Any(i => intereses.Contains(i))).ToList();
         }
     }
+}
