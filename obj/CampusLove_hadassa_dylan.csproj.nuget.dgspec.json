@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/camper/examencsharp/CampusLove_hadassa_dylan/CampusLove_hadassa_dylan.csproj": {}
+    "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj": {}
   },
   "projects": {
-    "/home/camper/examencsharp/CampusLove_hadassa_dylan/CampusLove_hadassa_dylan.csproj": {
+    "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/camper/examencsharp/CampusLove_hadassa_dylan/CampusLove_hadassa_dylan.csproj",
+        "projectUniqueName": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
         "projectName": "CampusLove_hadassa_dylan",
-        "projectPath": "/home/camper/examencsharp/CampusLove_hadassa_dylan/CampusLove_hadassa_dylan.csproj",
-        "packagesPath": "/home/camper/.nuget/packages/",
-        "outputPath": "/home/camper/examencsharp/CampusLove_hadassa_dylan/obj/",
+        "projectPath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/camper/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -38,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
