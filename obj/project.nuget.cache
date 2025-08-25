@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Nv/Sq8ld2ko=",
+  "dgSpecHash": "deYXYTzn8+8=",
   "success": true,
-  "projectFilePath": "/home/camper/campuslove_hadassa_dylan/CampusLove_hadassa_dylan/CampusLove_hadassa_dylan.csproj",
+  "projectFilePath": "/home/camper/CampusLove_hadassa_dylan/CampusLove_hadassa_dylan.csproj",
   "expectedPackageFiles": [
     "/home/camper/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/camper/.nuget/packages/microsoft.bcl.asyncinterfaces/7.0.0/microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
