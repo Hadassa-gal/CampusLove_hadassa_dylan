@@ -8,10 +8,10 @@ namespace CampusLove_hadassa_dylan.src.Shared.UI
             do
             {
                 Console.Clear();
-                Console.WriteLine("===== MENÚ RANKING =====");
-                Console.WriteLine("1. Ver ranking general");
-                Console.WriteLine("2. Buscar usuario en ranking");
-                Console.WriteLine("0. Volver");
+                Console.WriteLine("===== 🏆 MENÚ RANKING 🏆 =====");
+                Console.WriteLine("1. 📈 Ver ranking general");
+                Console.WriteLine("2. 🔍 Buscar usuario en ranking");
+                Console.WriteLine("0. 🔙 Volver");
                 Console.Write("Seleccione una opción: ");
 
                 int.TryParse(Console.ReadLine(), out opcion);

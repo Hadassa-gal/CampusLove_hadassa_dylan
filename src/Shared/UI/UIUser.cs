@@ -8,12 +8,12 @@ namespace CampusLove_hadassa_dylan.src.Shared.UI
             do
             {
                 Console.Clear();
-                Console.WriteLine("===== MENÚ USUARIOS =====");
-                Console.WriteLine("1. Crear usuario");
-                Console.WriteLine("2. Listar usuarios");
-                Console.WriteLine("3. Editar usuario");
-                Console.WriteLine("4. Eliminar usuario");
-                Console.WriteLine("0. Volver");
+                Console.WriteLine("===== \uD83D\uDC64 MENÚ USUARIOS \uD83D\uDC64 =====");
+                Console.WriteLine("1. ✨ Crear usuario");
+                Console.WriteLine("2. 📋 Listar usuarios");
+                Console.WriteLine("3. ✏️ Editar usuario");
+                Console.WriteLine("4. 🗑️ Eliminar usuario");
+                Console.WriteLine("0. 🔙 Volver");
                 Console.Write("Seleccione una opción: ");
 
                 int.TryParse(Console.ReadLine(), out opcion);

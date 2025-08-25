@@ -8,11 +8,11 @@ namespace CampusLove_hadassa_dylan.src.Shared.UI
             do
             {
                 Console.Clear();
-                Console.WriteLine("===== MENÚ MATCHES =====");
-                Console.WriteLine("1. Crear match");
-                Console.WriteLine("2. Ver matches de usuario");
-                Console.WriteLine("3. Eliminar match");
-                Console.WriteLine("0. Volver");
+                Console.WriteLine("===== 💞 MENÚ MATCHES 💞 =====");
+                Console.WriteLine("1. 💌 Crear match");
+                Console.WriteLine("2. 👥 Ver matches de usuario");
+                Console.WriteLine("3. ❌ Eliminar match");
+                Console.WriteLine("0. 🔙 Volver");
                 Console.Write("Seleccione una opción: ");
 
                 int.TryParse(Console.ReadLine(), out opcion);
