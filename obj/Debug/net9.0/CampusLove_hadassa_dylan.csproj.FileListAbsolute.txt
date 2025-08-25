@@ -141,3 +141,12 @@
 /home/camper/CampusLove_hadassa_dylan/bin/Debug/net9.0/runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll
 /home/camper/CampusLove_hadassa_dylan/bin/Debug/net9.0/runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll
 /home/camper/CampusLove_hadassa_dylan/bin/Debug/net9.0/runtimes/win/lib/net8.0/System.Windows.Extensions.dll
+C:\Users\HP\Desktop\CampusLove_hadassa_dylan\obj\Debug\net9.0\CampusLove_hadassa_dylan.csproj.AssemblyReference.cache
+C:\Users\HP\Desktop\CampusLove_hadassa_dylan\obj\Debug\net9.0\CampusLove_hadassa_dylan.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Desktop\CampusLove_hadassa_dylan\obj\Debug\net9.0\CampusLove_hadassa_dylan.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\CampusLove_hadassa_dylan\obj\Debug\net9.0\CampusLove_hadassa_dylan.AssemblyInfo.cs
+C:\Users\HP\Desktop\CampusLove_hadassa_dylan\obj\Debug\net9.0\CampusLove_hadassa_dylan.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\CampusLove_hadassa_dylan\obj\Debug\net9.0\CampusLove_hadassa_dylan.sourcelink.json
+C:\Users\HP\Desktop\CampusLove_hadassa_dylan\obj\Debug\net9.0\CampusLove_hadassa_dylan.dll
+C:\Users\HP\Desktop\CampusLove_hadassa_dylan\obj\Debug\net9.0\refint\CampusLove_hadassa_dylan.dll
+C:\Users\HP\Desktop\CampusLove_hadassa_dylan\obj\Debug\net9.0\CampusLove_hadassa_dylan.pdb

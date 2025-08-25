@@ -4,9 +4,9 @@ using CampusLove_hadassa_dylan.src.Modules.Users.Domain.Entities;
 
 namespace CampusLove_hadassa_dylan.src.Shared.Configurations
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<Usuario>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Usuario> builder)
         {
             builder.ToTable("Users");
             builder.HasKey(u => u.Id);
@@ -56,9 +56,9 @@ namespace CampusLove_hadassa_dylan.src.Shared.Configurations
             builder.Property(u => u.Intereses)
                 .HasConversion(
                     v => string.Join(";", v), // Separar con punto y coma
-                    v => string.IsNullOrEmpty(v) 
+                    v => (ICollection<Modules.Interacciones.Domain.Entities.UsuarioInteres>)(string.IsNullOrEmpty(v) 
                         ? new List<string>() 
-                        : v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
+                        : v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList())
                 )
                 .HasColumnName("InteresesJson")
                 .HasMaxLength(1000);
