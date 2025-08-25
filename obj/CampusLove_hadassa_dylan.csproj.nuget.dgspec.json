@@ -13,6 +13,19 @@
         "projectPath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
         "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\obj\\",
+=======
+    "/home/camper/CampusLove_hadassa_dylan/CampusLove_hadassa_dylan.csproj": {}
+  },
+  "projects": {
+    "/home/camper/CampusLove_hadassa_dylan/CampusLove_hadassa_dylan.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/camper/CampusLove_hadassa_dylan/CampusLove_hadassa_dylan.csproj",
+        "projectName": "CampusLove_hadassa_dylan",
+        "projectPath": "/home/camper/CampusLove_hadassa_dylan/CampusLove_hadassa_dylan.csproj",
+        "packagesPath": "/home/camper/.nuget/packages/",
+        "outputPath": "/home/camper/CampusLove_hadassa_dylan/obj/",
+>>>>>>> feature/Dylan-3
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config"
