@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using MySql.Data.MySqlClient;
 
 namespace CampusLove
@@ -17,9 +15,10 @@ namespace CampusLove
                 Console.WriteLine("              MENÚ PRINCIPAL");
                 Console.WriteLine("══════════════════════════════════════");
                 Console.WriteLine("1. 📝 Registrar un nuevo usuario");
-                Console.WriteLine("2. 👀 Ver usuarios registrados");
-                Console.WriteLine("3. 👎 Ver dislikes recibidos por usuario");
-                Console.WriteLine("4. 🚪 Salir");
+                Console.WriteLine("2. 👀 Ver usuarios registrados (con frase)");
+                Console.WriteLine("3. 🔎 Ver perfil por nombre");
+                Console.WriteLine("4. 👍👎 Dar like o dislike a un usuario");
+                Console.WriteLine("5. 🚪 Salir");
                 Console.WriteLine("══════════════════════════════════════");
                 Console.Write("Selecciona una opción: ");
                 var opcion = Console.ReadLine();
@@ -33,9 +32,12 @@ namespace CampusLove
                         VerUsuarios();
                         break;
                     case "3":
-                        VerDislikes();
+                        VerPerfilPorNombre();
                         break;
                     case "4":
+                        DarLikeODislike();
+                        break;
+                    case "5":
                         Console.WriteLine("¡Gracias por usar Campus Love! 💕");
                         return;
                     default:
@@ -93,7 +95,7 @@ namespace CampusLove
             try
             {
                 connection.Open();
-                var query = "SELECT id, nombre, edad, genero, carrera FROM usuarios";
+                var query = "SELECT id, nombre, edad, genero, carrera, frase_perfil FROM usuarios";
                 using var command = new MySqlCommand(query, connection);
                 using var reader = command.ExecuteReader();
 
@@ -101,7 +103,7 @@ namespace CampusLove
                 Console.WriteLine("══════════════════════════════════════");
                 while (reader.Read())
                 {
-                    Console.WriteLine($"ID: {reader["id"]}, Nombre: {reader["nombre"]}, Edad: {reader["edad"]}, Género: {reader["genero"]}, Carrera: {reader["carrera"]}");
+                    Console.WriteLine($"ID: {reader["id"]}, Nombre: {reader["nombre"]}, Edad: {reader["edad"]}, Género: {reader["genero"]}, Carrera: {reader["carrera"]}, Frase: {reader["frase_perfil"]}");
                 }
             }
             catch (Exception ex)
@@ -110,39 +112,96 @@ namespace CampusLove
             }
         }
 
-        static void VerDislikes()
+        static void VerPerfilPorNombre()
         {
+            Console.Write("\n👉 Ingresa el nombre del usuario: ");
+            var nombreBuscado = Console.ReadLine();
+
             using var connection = new MySqlConnection(ConnectionString);
             try
             {
                 connection.Open();
-                var query = @"
-                    SELECT 
-                        u.nombre AS usuario, 
-                        COUNT(*) AS dislikes_recibidos
-                    FROM 
-                        interacciones i
-                    JOIN 
-                        usuarios u ON i.usuario_objetivo_id = u.id
-                    WHERE 
-                        i.tipo_interaccion = 'dislike'
-                    GROUP BY 
-                        i.usuario_objetivo_id
-                    ORDER BY 
-                        dislikes_recibidos DESC";
-                using var command = new MySqlCommand(query, connection);
-                using var reader = command.ExecuteReader();
+                
+                // Datos del usuario
+                var queryUsuario = "SELECT id, nombre, edad, genero, carrera, frase_perfil FROM usuarios WHERE nombre = @nombre";
+                using var commandUsuario = new MySqlCommand(queryUsuario, connection);
+                commandUsuario.Parameters.AddWithValue("@nombre", nombreBuscado);
+                using var reader = commandUsuario.ExecuteReader();
 
-                Console.WriteLine("\nDislikes recibidos por usuario:");
-                Console.WriteLine("══════════════════════════════════════");
-                while (reader.Read())
+                if (!reader.Read())
                 {
-                    Console.WriteLine($"Usuario: {reader["usuario"]}, Dislikes: {reader["dislikes_recibidos"]}");
+                    Console.WriteLine("❌ Usuario no encontrado.");
+                    return;
                 }
+
+                var userId = Convert.ToInt32(reader["id"]);
+                Console.WriteLine($"\nPerfil de {reader["nombre"]}:");
+                Console.WriteLine($"Edad: {reader["edad"]}, Género: {reader["genero"]}, Carrera: {reader["carrera"]}");
+                Console.WriteLine($"✨ Frase: {reader["frase_perfil"]}");
+                reader.Close();
+
+                // Likes y Dislikes
+                var queryInteracciones = @"
+                    SELECT tipo_interaccion, COUNT(*) AS total
+                    FROM interacciones
+                    WHERE usuario_objetivo_id = @id
+                    GROUP BY tipo_interaccion";
+                using var commandInt = new MySqlCommand(queryInteracciones, connection);
+                commandInt.Parameters.AddWithValue("@id", userId);
+                using var readerInt = commandInt.ExecuteReader();
+
+                int likes = 0, dislikes = 0;
+                while (readerInt.Read())
+                {
+                    if (readerInt["tipo_interaccion"].ToString() == "like")
+                        likes = Convert.ToInt32(readerInt["total"]);
+                    else
+                        dislikes = Convert.ToInt32(readerInt["total"]);
+                }
+                Console.WriteLine($"👍 Likes: {likes} | 👎 Dislikes: {dislikes}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Error al obtener los dislikes: {ex.Message}");
+                Console.WriteLine($"❌ Error al obtener el perfil: {ex.Message}");
+            }
+        }
+
+        static void DarLikeODislike()
+        {
+            Console.Write("\n👉 Tu ID de usuario (quién da la interacción): ");
+            if (!int.TryParse(Console.ReadLine(), out int usuarioId))
+            {
+                Console.WriteLine("❌ ID no válido.");
+                return;
+            }
+
+            Console.Write("👉 ID del usuario objetivo: ");
+            if (!int.TryParse(Console.ReadLine(), out int objetivoId))
+            {
+                Console.WriteLine("❌ ID no válido.");
+                return;
+            }
+
+            Console.Write("👍 Dar like (1) o 👎 dislike (2): ");
+            var opcion = Console.ReadLine();
+            string tipo = opcion == "1" ? "like" : "dislike";
+
+            using var connection = new MySqlConnection(ConnectionString);
+            try
+            {
+                connection.Open();
+                var query = "INSERT INTO interacciones (usuario_id, usuario_objetivo_id, tipo_interaccion) VALUES (@usuarioId, @objetivoId, @tipo)";
+                using var command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@usuarioId", usuarioId);
+                command.Parameters.AddWithValue("@objetivoId", objetivoId);
+                command.Parameters.AddWithValue("@tipo", tipo);
+                command.ExecuteNonQuery();
+
+                Console.WriteLine($"✅ {tipo.ToUpper()} registrado exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error al registrar interacción: {ex.Message}");
             }
         }
     }
