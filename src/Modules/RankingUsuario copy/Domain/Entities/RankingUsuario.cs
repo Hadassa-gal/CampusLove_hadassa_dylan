@@ -1,11 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using CampusLove_hadassa_dylan.src.Modules.Users.Domain.Entities;
-using CampusLove_hadassa_dylan.src.Modules.Users.Application.Interfaces.Repository;
-using CampusLove_hadassa_dylan.src.Shared.Context;
+using System.Data;
 
-namespace CampusLove_hadassa_dylan.src.Modules.Users.Infrastructure.Repository;
+namespace CampusLove_hadassa_dylan.src.Modules.RankingUsuario.Domain.Entities
+{
+    
 
-public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _context;
 
@@ -14,7 +13,7 @@ public class UserRepository : IUserRepository
             _context = context;
         }
 
-        public int CrearUsuario(Userss usuario)
+        public int CrearUsuario(Usuario usuario)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
@@ -41,7 +40,7 @@ public class UserRepository : IUserRepository
             return userId;
         }
 
-        public Userss ObtenerUsuario(int id)
+        public Usuario ObtenerUsuario(int id)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
@@ -57,7 +56,7 @@ public class UserRepository : IUserRepository
             using var reader = command.ExecuteReader();
             if (reader.Read())
             {
-                var usuario = new Userss
+                var usuario = new Usuario
                 {
                     Id = reader.GetInt32("id"),
                     Nombre = reader.GetString("nombre"),
@@ -80,7 +79,7 @@ public class UserRepository : IUserRepository
             return null;
         }
 
-        public List<Userss> ObtenerUsuariosDisponibles(int usuarioId, int limite = 10)
+        public List<Usuario> ObtenerUsuariosDisponibles(int usuarioId, int limite = 10)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
@@ -90,12 +89,12 @@ public class UserRepository : IUserRepository
             command.Parameters.AddWithValue("p_usuario_id", usuarioId);
             command.Parameters.AddWithValue("p_limite", limite);
 
-            var usuarios = new List<Userss>();
+            var usuarios = new List<Usuario>();
             using var reader = command.ExecuteReader();
             
             while (reader.Read())
             {
-                var usuario = new Userss
+                var usuario = new Usuario
                 {
                     Id = reader.GetInt32("id"),
                     Nombre = reader.GetString("nombre"),
@@ -183,7 +182,7 @@ public class UserRepository : IUserRepository
             return intereses;
         }
 
-        public List<Userss> ObtenerTodosLosUsuarios()
+        public List<Usuario> ObtenerTodosLosUsuarios()
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
@@ -193,12 +192,12 @@ public class UserRepository : IUserRepository
                          FROM usuarios WHERE activo = TRUE ORDER BY nombre";
 
             using var command = new MySqlCommand(query, connection);
-            var usuarios = new List<Userss>();
+            var usuarios = new List<Usuario>();
 
             using var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                usuarios.Add(new Userss
+                usuarios.Add(new Usuario
                 {
                     Id = reader.GetInt32("id"),
                     Nombre = reader.GetString("nombre"),
@@ -214,3 +213,129 @@ public class UserRepository : IUserRepository
             return usuarios;
         }
     }
+
+    public interface IInteraccionRepository
+    {
+        bool ProcesarInteraccion(int usuarioId, int objetivoId, TipoInteraccion tipo);
+        List<Match> ObtenerMatches(int usuarioId);
+        bool YaInteractuo(int usuarioId, int objetivoId);
+    }
+
+    public class InteraccionRepository : IInteraccionRepository
+    {
+        private readonly string _connectionString;
+
+        public InteraccionRepository()
+        {
+            _connectionString = ConfiguracionDB.CadenaConexion;
+        }
+
+        public bool ProcesarInteraccion(int usuarioId, int objetivoId, TipoInteraccion tipo)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            using var transaction = connection.BeginTransaction();
+            
+            try
+            {
+                // Verificar que el usuario tenga créditos
+                var queryCreditos = "SELECT creditos_interaccion FROM usuarios WHERE id = @usuarioId FOR UPDATE";
+                using var commandCreditos = new MySqlCommand(queryCreditos, connection, transaction);
+                commandCreditos.Parameters.AddWithValue("@usuarioId", usuarioId);
+                var creditos = Convert.ToInt32(commandCreditos.ExecuteScalar());
+
+                if (creditos <= 0)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+
+                // Reducir créditos
+                var queryReducirCreditos = "UPDATE usuarios SET creditos_interaccion = creditos_interaccion - 1 WHERE id = @usuarioId";
+                using var commandReducir = new MySqlCommand(queryReducirCreditos, connection, transaction);
+                commandReducir.Parameters.AddWithValue("@usuarioId", usuarioId);
+                commandReducir.ExecuteNonQuery();
+
+                // Registrar interacción
+                var queryInteraccion = @"INSERT INTO interacciones (usuario_id, usuario_objetivo_id, tipo_interaccion) 
+                                        VALUES (@usuarioId, @objetivoId, @tipo)
+                                        ON DUPLICATE KEY UPDATE tipo_interaccion = @tipo";
+                
+                using var commandInteraccion = new MySqlCommand(queryInteraccion, connection, transaction);
+                commandInteraccion.Parameters.AddWithValue("@usuarioId", usuarioId);
+                commandInteraccion.Parameters.AddWithValue("@objetivoId", objetivoId);
+                commandInteraccion.Parameters.AddWithValue("@tipo", tipo.ToString().ToLower());
+                
+                commandInteraccion.ExecuteNonQuery();
+
+                transaction.Commit();
+                return true;
+            }
+            catch
+            {
+                transaction.Rollback();
+                return false;
+            }
+        }
+
+        public List<Match> ObtenerMatches(int usuarioId)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            var query = @"SELECT m.id, m.usuario1_id, m.usuario2_id, m.porcentaje_compatibilidad, 
+                                m.fecha_match, m.activo,
+                                u1.nombre as nombre_usuario1, u2.nombre as nombre_usuario2
+                         FROM matches m
+                         JOIN usuarios u1 ON m.usuario1_id = u1.id
+                         JOIN usuarios u2 ON m.usuario2_id = u2.id
+                         WHERE (m.usuario1_id = @usuarioId OR m.usuario2_id = @usuarioId) 
+                           AND m.activo = TRUE
+                         ORDER BY m.fecha_match DESC";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@usuarioId", usuarioId);
+
+            var matches = new List<Match>();
+            using var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                matches.Add(new Match
+                {
+                    Id = reader.GetInt32("id"),
+                    Usuario1Id = reader.GetInt32("usuario1_id"),
+                    Usuario2Id = reader.GetInt32("usuario2_id"),
+                    PorcentajeCompatibilidad = reader.GetInt32("porcentaje_compatibilidad"),
+                    FechaMatch = reader.GetDateTime("fecha_match"),
+                    Activo = reader.GetBoolean("activo"),
+                    NombreUsuario1 = reader.GetString("nombre_usuario1"),
+                    NombreUsuario2 = reader.GetString("nombre_usuario2")
+                });
+            }
+
+            return matches;
+        }
+
+        public bool YaInteractuo(int usuarioId, int objetivoId)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            var query = @"SELECT COUNT(*) FROM interacciones 
+                         WHERE usuario_id = @usuarioId AND usuario_objetivo_id = @objetivoId";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@usuarioId", usuarioId);
+            command.Parameters.AddWithValue("@objetivoId", objetivoId);
+
+            return Convert.ToInt32(command.ExecuteScalar()) > 0;
+        }
+    }
+
+    public interface IEstadisticasRepository
+    {
+        EstadisticasGenerales ObtenerEstadisticasGenerales();
+        List<RankingUsuario> ObtenerRankingPopularidad(int limite = 10);
+        Dictionary<string, int> ObtenerEstadistica
