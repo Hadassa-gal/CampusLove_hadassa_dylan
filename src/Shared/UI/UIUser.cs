@@ -1,6 +1,6 @@
 namespace CampusLove_hadassa_dylan.src.Shared.UI;   
 using CampusLove_hadassa_dylan.src.Shared.Credits;
-{
+
     public static class UIUser
     {
         public static void Show()
@@ -67,4 +67,4 @@ using CampusLove_hadassa_dylan.src.Shared.Credits;
             // Aquí se agregaría la lógica para guardar el usuario
         }
     }
-}
+

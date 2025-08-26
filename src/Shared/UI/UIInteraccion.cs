@@ -1,6 +1,6 @@
 namespace CampusLove_hadassa_dylan.src.Shared.UI;
 using CampusLove_hadassa_dylan.src.Shared.Credits;
-{
+
     public static class UIInteraccion
     {
         public static void Show()
@@ -45,4 +45,4 @@ using CampusLove_hadassa_dylan.src.Shared.Credits;
             } while (opcion != 0);
         }
     }
-}
+
