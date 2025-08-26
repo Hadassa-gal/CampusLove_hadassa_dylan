@@ -24,6 +24,10 @@ namespace CampusLove_hadassa_dylan.src.Modules.UsuarioContraseñas.Application.S
             _context = context;
         }
 
+        public UsuarioContraseñaServices()
+        {
+        }
+
         #region Métodos Principales
 
         public async Task<Usuario> CrearUsuarioConContraseñaAsync(CrearUsuarioRequest request)

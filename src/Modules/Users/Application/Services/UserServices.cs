@@ -14,7 +14,12 @@ namespace CampusLove_hadassa_dylan.src.Modules.Users.Application.Services
     {
         private readonly AppDbContext _context = context;
 
-        // 1. Obtener usuarios activos por carrera
+        public async Task<List<Usuario>> ObtenerTodosUsuariosAsync()
+        {
+            return await _context.Usuarios
+                .Include(u => u.Intereses)
+                .ToListAsync();
+        }
         public async Task<List<Usuario>> ObtenerUsuariosPorCarreraAsync(string carrera)
         {
             return await _context.Usuarios
