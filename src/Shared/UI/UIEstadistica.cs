@@ -1,32 +1,30 @@
+using System;
+
 namespace CampusLove_hadassa_dylan.src.Shared.UI
 {
     public static class UIEstadistica
     {
         public static void Show()
         {
-            int opcion;
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("===== 📊 MENÚ ESTADÍSTICAS 📊 =====");
-                Console.WriteLine("1. 🏅 Usuarios más activos");
-                Console.WriteLine("2. 💑 Matches más comunes");
-                Console.WriteLine("3. 🔢 Interacciones totales");
-                Console.WriteLine("0. 🔙 Volver");
-                Console.Write("Seleccione una opción: ");
+            Console.Clear();
+            Console.WriteLine("📊 ESTADÍSTICAS DEL SISTEMA 📊");
+            Console.WriteLine("=============================");
+            
+            // Datos de ejemplo para demostración
+            Console.WriteLine($"{"Métrica",-25} {"Valor",-10}");
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine($"{"Usuarios totales",-25} {"15",-10}");
+            Console.WriteLine($"{"Matches realizados",-25} {"8",-10}");
+            Console.WriteLine($"{"Likes dados hoy",-25} {"23",-10}");
+            Console.WriteLine($"{"Promedio de edad",-25} {"22.3",-10}");
+            Console.WriteLine($"{"Usuarios activos",-25} {"12",-10}");
+            Console.WriteLine($"{"Tasa de éxito",-25} {"73%",-10}");
 
-                int.TryParse(Console.ReadLine(), out opcion);
-
-                switch (opcion)
-                {
-                    case 1: Console.WriteLine("Mostrando usuarios más activos..."); break;
-                    case 2: Console.WriteLine("Mostrando matches comunes..."); break;
-                    case 3: Console.WriteLine("Mostrando interacciones totales..."); break;
-                }
-
-                if (opcion != 0) Console.ReadKey();
-
-            } while (opcion != 0);
+            Console.WriteLine();
+            Console.WriteLine("Nota: Esta es una demostración. La funcionalidad completa");
+            Console.WriteLine("requiere la implementación del sistema de estadísticas.");
+            Console.WriteLine("Presione una tecla para volver...");
+            Console.ReadKey();
         }
     }
 }
