@@ -14,13 +14,13 @@ namespace CampusLove_hadassa_dylan.src.Modules.Users.Domain.Entities
         Otro
     }
     public enum TipoDocumento
-{
-    CC,
-    CE, 
-    TI,
-    Pasaporte,
-    Otro
-}
+    {
+        CC,
+        CE, 
+        TI,
+        Pasaporte,
+        Otro
+    }
     public class Usuario
     {
         public int Id { get; set; }
