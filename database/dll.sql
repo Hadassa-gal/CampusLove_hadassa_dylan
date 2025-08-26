@@ -1,11 +1,15 @@
 -- Creación de la base de datos
 DROP DATABASE IF EXISTS campus_love;
+DROP DATABASE IF EXISTS campus_love;
 CREATE DATABASE IF NOT EXISTS campus_love;
 USE campus_love;
 
 -- Tabla de usuarios (CON AUTO_INCREMENT)
+-- Tabla de usuarios (CON AUTO_INCREMENT)
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_documento ENUM('CC', 'CE', 'TI', 'Pasaporte', 'Otro') NOT NULL,
+    numero_documento VARCHAR(20) NOT NULL UNIQUE,
     tipo_documento ENUM('CC', 'CE', 'TI', 'Pasaporte', 'Otro') NOT NULL,
     numero_documento VARCHAR(20) NOT NULL UNIQUE,
     nombre VARCHAR(100) NOT NULL,
@@ -51,6 +55,8 @@ CREATE TABLE interacciones (
     FOREIGN KEY (usuario_objetivo_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     UNIQUE KEY unique_interaction (usuario_id, usuario_objetivo_id),
     CHECK (usuario_id != usuario_objetivo_id) 
+    UNIQUE KEY unique_interaction (usuario_id, usuario_objetivo_id),
+    CHECK (usuario_id != usuario_objetivo_id) 
 );
 
 -- Tabla de matches
@@ -67,6 +73,13 @@ CREATE TABLE matches (
     CHECK (usuario1_id != usuario2_id)
 );
 
+-- Índices adicionales para mejorar performance
+CREATE INDEX idx_usuarios_activo ON usuarios(activo);
+CREATE INDEX idx_usuarios_carrera ON usuarios(carrera);
+CREATE INDEX idx_usuarios_edad ON usuarios(edad);
+CREATE INDEX idx_interacciones_fecha ON interacciones(fecha_interaccion);
+CREATE INDEX idx_matches_fecha ON matches(fecha_match);
+CREATE INDEX idx_matches_activo ON matches(activo);
 -- Índices adicionales para mejorar performance
 CREATE INDEX idx_usuarios_activo ON usuarios(activo);
 CREATE INDEX idx_usuarios_carrera ON usuarios(carrera);
