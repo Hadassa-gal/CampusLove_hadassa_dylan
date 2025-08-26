@@ -14,7 +14,12 @@ namespace CampusLove_hadassa_dylan.src.Modules.Users.Application.Services
     {
         private readonly AppDbContext _context = context;
 
-        // 1. Obtener usuarios activos por carrera
+        public async Task<List<Usuario>> ObtenerTodosUsuariosAsync()
+        {
+            return await _context.Usuarios
+                .Include(u => u.Intereses)
+                .ToListAsync();
+        }
         public async Task<List<Usuario>> ObtenerUsuariosPorCarreraAsync(string carrera)
         {
             return await _context.Usuarios
@@ -69,7 +74,7 @@ namespace CampusLove_hadassa_dylan.src.Modules.Users.Application.Services
 
             var likesRecibidos = usuario.LikesRecibidos;
             var likesEnviados = await _context.Interacciones
-                .CountAsync(i => i.UsuarioId == usuarioId && i.TipoInteraccion == TipoInteraccion.Like);
+                .CountAsync(i => i.UsuarioId == usuarioId && i.Tipo == TipoInteraccion.Like);
 
             var matchesCount = await _context.Matches
                 .CountAsync(m => (m.Usuario1Id == usuarioId || m.Usuario2Id == usuarioId) && m.Activo);

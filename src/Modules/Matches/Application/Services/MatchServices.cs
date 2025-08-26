@@ -53,7 +53,7 @@ namespace CampusLove_hadassa_dylan.src.Modules.Matches.Application.Services
                 {
                     Usuario1Id = Math.Min(usuario1Id, usuario2Id), // Siempre el menor ID primero
                     Usuario2Id = Math.Max(usuario1Id, usuario2Id),
-                    PorcentajeCompatibilidad = porcentajeCompatibilidad,
+                    Compatibilidad = porcentajeCompatibilidad,
                     FechaMatch = DateTime.Now,
                     Activo = true
                 };

@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
         "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\obj\\",
+=======
+    "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
+        "projectName": "CampusLove_hadassa_dylan",
+        "projectPath": "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\obj\\",
+>>>>>>> release/1.0.0
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config"

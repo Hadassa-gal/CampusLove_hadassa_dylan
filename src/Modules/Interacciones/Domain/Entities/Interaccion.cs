@@ -16,9 +16,10 @@ namespace CampusLove_hadassa_dylan.src.Modules.Interacciones.Domain.Entities
         public int Id { get; set; }
         public int UsuarioId { get; set; }
         public int UsuarioObjetivoId { get; set; }
-        public TipoInteraccion TipoInteraccion { get; set; }
+        public TipoInteraccion Tipo { get; set; }
         public DateTime FechaInteraccion { get; set; } = DateTime.Now;
         public virtual Usuario Usuario { get; set; } = null!;
         public virtual Usuario UsuarioObjetivo { get; set; } = null!;
+        public TipoInteraccion TipoInteraccion { get; internal set; }
     }
 }

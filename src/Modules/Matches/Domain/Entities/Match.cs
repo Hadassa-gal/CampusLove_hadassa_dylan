@@ -9,12 +9,12 @@ namespace CampusLove_hadassa_dylan.src.Modules.Matches.Domain.Entities
     public class Match
     {
         public int Id { get; set; }
-        public int Usuario1Id { get; set; }
-        public int Usuario2Id { get; set; }
-        public int? PorcentajeCompatibilidad { get; set; }
+        public int Compatibilidad { get; set; }
         public DateTime FechaMatch { get; set; } = DateTime.Now;
         public bool Activo { get; set; } = true;
-        public virtual Usuario Usuario1 { get; set; } = null!;
-        public virtual Usuario Usuario2 { get; set; } = null!;
+        public int Usuario1Id { get; set; }
+        public Usuario? Usuario1 { get; set; }
+        public int Usuario2Id { get; set; }
+        public Usuario? Usuario2 { get; set; }
     }
 }

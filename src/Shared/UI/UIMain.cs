@@ -1,3 +1,8 @@
+using CampusLove_hadassa_dylan.src.Modules.Users.Domain.Entities;
+using CampusLove_hadassa_dylan.src.Modules.Matches.Domain.Entities;
+using CampusLove_hadassa_dylan.src.Modules.Interacciones.Domain.Entities;
+using CampusLove_hadassa_dylan.src.Modules.UsuarioIntereses.Domain.Entities;
+
 namespace CampusLove_hadassa_dylan.src.Shared.UI
 {
     public static class UIMain
@@ -8,13 +13,13 @@ namespace CampusLove_hadassa_dylan.src.Shared.UI
             do
             {
                 Console.Clear();
-                Console.WriteLine("===== CAMPUS LOVE =====");
-                Console.WriteLine("1. Usuarios");
-                Console.WriteLine("2. Ranking");
-                Console.WriteLine("3. Matches");
-                Console.WriteLine("4. Interacciones");
-                Console.WriteLine("5. Estadísticas");
-                Console.WriteLine("0. Salir");
+                Console.WriteLine("===== 💖 CAMPUS LOVE 💖 =====");
+                Console.WriteLine("1. 👤 Usuarios");
+                Console.WriteLine("2. 🏆 Ranking");
+                Console.WriteLine("3. 💞 Matches");
+                Console.WriteLine("4. 🤝 Interacciones");
+                Console.WriteLine("5. 📊 Estadísticas");
+                Console.WriteLine("0. 🚪 Salir");
                 Console.Write("Seleccione una opción: ");
 
                 int.TryParse(Console.ReadLine(), out opcion);
