@@ -4505,19 +4505,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HP\\.nuget\\packages\\": {}
+    "C:\\Users\\USUARIO\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
+      "projectUniqueName": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
       "projectName": "CampusLove_hadassa_dylan",
-      "projectPath": "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
-      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\obj\\",
+      "projectPath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\CampusLove_hadassa_dylan.csproj",
+      "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\USUARIO\\CampusLove_hadassa_dylan\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -4597,13 +4597,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\HP\\Desktop\\CampusLove_hadassa_dylan\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0."
-    }
-  ]
+  }
 }

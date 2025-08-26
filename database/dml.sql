@@ -1,103 +1,37 @@
--- Datos de ejemplo - Usuarios
-INSERT INTO usuarios (nombre, edad, genero, carrera, frase_perfil) VALUES
-('Ana García López', 22, 'Femenino', 'Ingeniería de Software', 'Amante de la tecnología y los libros 📚'),
-('Carlos Rodríguez Silva', 24, 'Masculino', 'Diseño Gráfico', 'Creativo por naturaleza 🎨'),
-('Laura Martínez Torres', 21, 'Femenino', 'Administración de Empresas', 'Exploradora del mundo 🌍'),
-('David López Hernández', 23, 'Masculino', 'Ingeniería de Sistemas', 'Código y café ☕️'),
-('Sofía Hernández Ruiz', 25, 'Femenino', 'Psicología', 'Ayudando a otros a crecer 🌱'),
-('Miguel Ángel Pérez', 26, 'Masculino', 'Arquitectura', 'Construyendo el futuro 🏗️'),
-('Isabella González', 20, 'Femenino', 'Medicina', 'Salvando vidas 🏥'),
-('Alejandro Jiménez', 27, 'Masculino', 'Ingeniería Civil', 'Moviendo montañas ⛰️'),
-('Valentina Castro', 23, 'Femenino', 'Comunicación Social', 'Contando historias que importan 📰'),
-('Santiago Morales', 22, 'Masculino', 'Economía', 'Números y estrategias 📊'),
-('Camila Vargas', 24, 'Femenino', 'Derecho', 'Luchando por la justicia ⚖️'),
-('Andrés Felipe Ruiz', 25, 'Masculino', 'Ingeniería Industrial', 'Optimizando procesos 🔧'),
-('Daniela Ospina', 21, 'Femenino', 'Biología', 'Explorando la vida 🔬'),
-('Juan Pablo Torres', 26, 'Masculino', 'Música', 'Creando melodías 🎵'),
-('María José Ramírez', 20, 'Femenino', 'Arte y Diseño', 'Pintando emociones 🎭');
+INSERT INTO usuarios (tipo_documento, numero_documento, nombre, edad, genero, carrera, frase_perfil)
+VALUES
+('CC', '1001', 'Juan Pérez', 22, 'Masculino', 'Ingeniería de Sistemas', 'Amante de la tecnología y el café'),
+('TI', '1002', 'Laura Gómez', 19, 'Femenino', 'Psicología', 'Me encanta leer y escuchar música indie'),
+('CC', '1003', 'Carlos Ramírez', 24, 'Masculino', 'Medicina', 'Apasionado por ayudar a los demás'),
+('Pasaporte', '1004', 'Emily Torres', 21, 'Femenino', 'Administración de Empresas', 'Viajar y conocer culturas es mi pasión'),
+('CC', '1005', 'Andrés López', 23, 'Masculino', 'Arquitectura', 'Me gusta diseñar y crear espacios únicos');
 
--- Intereses de ejemplo
-INSERT INTO usuario_intereses (usuario_id, interes) VALUES
--- Ana (ID: 1)
-(1, 'tecnología'), (1, 'lectura'), (1, 'música'), (1, 'cine'), (1, 'programación'),
--- Carlos (ID: 2)
-(2, 'arte'), (2, 'fotografía'), (2, 'música'), (2, 'viajes'), (2, 'diseño'),
--- Laura (ID: 3)
-(3, 'viajes'), (3, 'cocina'), (3, 'fotografía'), (3, 'deportes'), (3, 'administración'),
--- David (ID: 4)
-(4, 'programación'), (4, 'música'), (4, 'lectura'), (4, 'videojuegos'), (4, 'tecnología'),
--- Sofía (ID: 5)
-(5, 'psicología'), (5, 'baile'), (5, 'cine'), (5, 'voluntariado'), (5, 'lectura'),
--- Miguel (ID: 6)
-(6, 'arquitectura'), (6, 'arte'), (6, 'fotografía'), (6, 'viajes'), (6, 'diseño'),
--- Isabella (ID: 7)
-(7, 'medicina'), (7, 'deportes'), (7, 'lectura'), (7, 'voluntariado'), (7, 'ciencias'),
--- Alejandro (ID: 8)
-(8, 'ingeniería'), (8, 'deportes'), (8, 'música'), (8, 'tecnología'), (8, 'construcción'),
--- Valentina (ID: 9)
-(9, 'comunicación'), (9, 'escritura'), (9, 'cine'), (9, 'fotografía'), (9, 'periodismo'),
--- Santiago (ID: 10)
-(10, 'economía'), (10, 'finanzas'), (10, 'deportes'), (10, 'lectura'), (10, 'análisis'),
--- Camila (ID: 11)
-(11, 'derecho'), (11, 'debate'), (11, 'lectura'), (11, 'justicia'), (11, 'política'),
--- Andrés Felipe (ID: 12)
-(12, 'ingeniería'), (12, 'optimización'), (12, 'deportes'), (12, 'tecnología'), (12, 'análisis'),
--- Daniela (ID: 13)
-(13, 'biología'), (13, 'ciencias'), (13, 'investigación'), (13, 'naturaleza'), (13, 'laboratorio'),
--- Juan Pablo (ID: 14)
-(14, 'música'), (14, 'composición'), (14, 'guitarra'), (14, 'piano'), (14, 'arte'),
--- María José (ID: 15)
-(15, 'arte'), (15, 'pintura'), (15, 'diseño'), (15, 'creatividad'), (15, 'exposiciones');
 
--- Interacciones de ejemplo (likes y dislikes)
-INSERT INTO interacciones (usuario_id, usuario_objetivo_id, tipo_interaccion) VALUES
--- Likes mutuos que generarán matches
-(1, 4, 'like'),  -- Ana -> David (ambos programación, tecnología)
-(4, 1, 'like'),  -- David -> Ana = MATCH
-(2, 6, 'like'),  -- Carlos -> Miguel (ambos arte, diseño)
-(6, 2, 'like'),  -- Miguel -> Carlos = MATCH
-(7, 13, 'like'), -- Isabella -> Daniela (ambas ciencias)
-(13, 7, 'like'), -- Daniela -> Isabella = MATCH
-(9, 11, 'like'), -- Valentina -> Camila (ambas humanidades)
-(11, 9, 'like'), -- Camila -> Valentina = MATCH
-(14, 15, 'like'), -- Juan Pablo -> María José (ambos arte)
-(15, 14, 'like'), -- María José -> Juan Pablo = MATCH
+INSERT INTO usuario_contrasenas (usuario_id, contrasena)
+VALUES
+(1, '1234'),
+(2, '1234'),
+(3, '1234'),
+(4, '1234'),
+(5, '1234');
 
--- Likes unilaterales
-(3, 8, 'like'),  -- Laura -> Alejandro
-(5, 1, 'like'),  -- Sofía -> Ana
-(10, 12, 'like'), -- Santiago -> Andrés Felipe
-(8, 3, 'like'),  -- Alejandro -> Laura
-(12, 10, 'like'), -- Andrés Felipe -> Santiago = MATCH con el anterior
 
--- Algunos dislikes
-(1, 2, 'dislike'), -- Ana no le gusta Carlos
-(3, 4, 'dislike'), -- Laura no le gusta David
-(5, 6, 'dislike'), -- Sofía no le gusta Miguel
-(7, 8, 'dislike'), -- Isabella no le gusta Alejandro
-(9, 10, 'dislike'); -- Valentina no le gusta Santiago
-
--- Matches generados manualmente (los triggers automáticos pueden no estar habilitados)
-INSERT INTO matches (usuario1_id, usuario2_id, porcentaje_compatibilidad) VALUES
-(1, 4, 85),   -- Ana y David
-(2, 6, 78),   -- Carlos y Miguel  
-(7, 13, 82),  -- Isabella y Daniela
-(9, 11, 75),  -- Valentina y Camila
-(14, 15, 88), -- Juan Pablo y María José
-(10, 12, 72); -- Santiago y Andrés Felipe
-
--- Actualizar algunos likes_recibidos manualmente
-UPDATE usuarios SET likes_recibidos = 3 WHERE id = 1;  -- Ana
-UPDATE usuarios SET likes_recibidos = 2 WHERE id = 4;  -- David
-UPDATE usuarios SET likes_recibidos = 2 WHERE id = 6;  -- Miguel
-UPDATE usuarios SET likes_recibidos = 2 WHERE id = 2;  -- Carlos
-UPDATE usuarios SET likes_recibidos = 1 WHERE id = 13; -- Daniela
-UPDATE usuarios SET likes_recibidos = 1 WHERE id = 7;  -- Isabella
-UPDATE usuarios SET likes_recibidos = 1 WHERE id = 11; -- Camila
-UPDATE usuarios SET likes_recibidos = 1 WHERE id = 9;  -- Valentina
-UPDATE usuarios SET likes_recibidos = 1 WHERE id = 15; -- María José
-UPDATE usuarios SET likes_recibidos = 1 WHERE id = 14; -- Juan Pablo
-UPDATE usuarios SET likes_recibidos = 1 WHERE id = 8;  -- Alejandro
-UPDATE usuarios SET likes_recibidos = 1 WHERE id = 3;  -- Laura
-UPDATE usuarios SET likes_recibidos = 1 WHERE id = 12; -- Andrés Felipe
-UPDATE usuarios SET likes_recibidos = 1 WHERE id = 10; -- Santiago
+INSERT INTO usuario_intereses (usuario_id, interes)
+VALUES
+(1, 'Programación'),
+(1, 'Videojuegos'),
+(2, 'Psicología'),
+(2, 'Libros'),
+(3, 'Deportes'),
+(3, 'Voluntariado'),
+(4, 'Viajes'),
+(4, 'Cultura'),
+(5, 'Diseño'),
+(5, 'Arte');
+INSERT INTO matches (usuario1_id, usuario2_id, porcentaje_compatibilidad, activo)
+VALUES
+(1, 2, 85, TRUE),   -- Juan & Laura
+(1, 4, 70, TRUE),   -- Juan & Emily
+(2, 3, 65, TRUE),   -- Laura & Carlos
+(3, 5, 90, TRUE),   -- Carlos & Andrés
+(4, 5, 75, TRUE);   -- Emily & Andrés
