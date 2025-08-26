@@ -9,7 +9,9 @@ namespace CampusLove_hadassa_dylan.src.Modules.UsuarioIntereses.Domain.Entities
     public class UsuarioInteres
     {
         public int Id { get; set; }
-        public int UsuarioId { get; set; }
         public string Interes { get; set; } = string.Empty;
+        public int UsuarioId { get; set; }
+        public Usuario? Usuario { get; set; }
+
     }
 }

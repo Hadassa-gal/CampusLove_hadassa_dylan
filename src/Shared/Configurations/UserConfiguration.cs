@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CampusLove_hadassa_dylan.src.Modules.Users.Domain.Entities;
+using CampusLove_hadassa_dylan.src.Modules.UsuarioIntereses.Domain.Entities;
 
 namespace CampusLove_hadassa_dylan.src.Shared.Configurations
 {
@@ -56,9 +57,9 @@ namespace CampusLove_hadassa_dylan.src.Shared.Configurations
             builder.Property(u => u.Intereses)
                 .HasConversion(
                     v => string.Join(";", v), // Separar con punto y coma
-                    v => (ICollection<Modules.Interacciones.Domain.Entities.UsuarioInteres>)(string.IsNullOrEmpty(v) 
-                        ? new List<string>() 
-                        : v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList())
+                    v => (ICollection<UsuarioInteres>)(string.IsNullOrEmpty(v) 
+                        ? new List<UsuarioInteres>() 
+                        : v.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(i => new UsuarioInteres { Interes = i }).ToList())
                 )
                 .HasColumnName("InteresesJson")
                 .HasMaxLength(1000);

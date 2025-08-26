@@ -11,6 +11,7 @@ using CampusLove_hadassa_dylan.src.Shared.Context;
 using Microsoft.EntityFrameworkCore;
 using CampusLove_hadassa_dylan.src.Modules.Users.Application.DTOs;
 using CampusLove_hadassa_dylan.src.Modules.UsuarioContraseñas.Domain.Entities;
+using CampusLove_hadassa_dylan.src.Modules.UsuarioIntereses.Domain.Entities;
 
 namespace CampusLove_hadassa_dylan.src.Modules.UsuarioContraseñas.Application.Services
 {

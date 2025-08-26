@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CampusLove_hadassa_dylan.src.Modules.Interacciones.Domain.Entities;
 using CampusLove_hadassa_dylan.src.Modules.Matches.Domain.Entities;
+using CampusLove_hadassa_dylan.src.Modules.UsuarioIntereses.Domain.Entities;
 
 namespace CampusLove_hadassa_dylan.src.Modules.Users.Domain.Entities
 {

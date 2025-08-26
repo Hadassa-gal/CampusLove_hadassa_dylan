@@ -3,6 +3,7 @@ using CampusLove_hadassa_dylan.src.Modules.Users.Domain.Entities;
 using CampusLove_hadassa_dylan.src.Modules.Interacciones.Domain.Entities;
 using CampusLove_hadassa_dylan.src.Modules.Matches.Domain.Entities;
 using CampusLove_hadassa_dylan.src.Modules.UsuarioContraseñas.Domain.Entities;
+using CampusLove_hadassa_dylan.src.Modules.UsuarioIntereses.Domain.Entities;
 
 namespace CampusLove_hadassa_dylan.src.Shared.Context
 {
@@ -32,19 +33,20 @@ namespace CampusLove_hadassa_dylan.src.Shared.Context
                 
                 // Configurar relaciones
                 entity.HasMany(e => e.Intereses)
-                      .WithOne(e => e.Usuario)
-                      .HasForeignKey(e => e.UsuarioId)
-                      .OnDelete(DeleteBehavior.Cascade);
+                    .WithOne(i => i.Usuario)   // ✅ usar navegación
+                    .HasForeignKey(i => i.UsuarioId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasMany(e => e.InteraccionesRealizadas)
-                      .WithOne(e => e.Usuario)
-                      .HasForeignKey(e => e.UsuarioId)
-                      .OnDelete(DeleteBehavior.Cascade);
+                    .WithOne(i => i.Usuario)
+                    .HasForeignKey(i => i.UsuarioId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasMany(e => e.InteraccionesRecibidas)
-                      .WithOne(e => e.UsuarioObjetivo)
-                      .HasForeignKey(e => e.UsuarioObjetivoId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                    .WithOne(i => i.UsuarioObjetivo)
+                    .HasForeignKey(i => i.UsuarioObjetivoId) // ✅ era UsuarioObjetivo
+                    .OnDelete(DeleteBehavior.Restrict);
+
             });
             // Configuración UsuarioContraseña
             modelBuilder.Entity<UsuarioContraseña>(entity =>
@@ -65,8 +67,8 @@ namespace CampusLove_hadassa_dylan.src.Shared.Context
             modelBuilder.Entity<Interaccion>( entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.HasIndex(e => new { e.UsuarioId, e.UsuarioObjetivoId }).IsUnique();
-                entity.Property(e => e.TipoInteraccion).HasConversion<string>();
+                entity.HasIndex(e => new { e.UsuarioId, e.UsuarioObjetivo }).IsUnique();
+                entity.Property(e => e.Tipo).HasConversion<string>();
 
                 // Verificar que usuario no interactúe consigo mismo
                 entity.HasCheckConstraint("CK_Interaccion_DifferentUsers", "usuario_id != usuario_objetivo_id");
@@ -78,15 +80,16 @@ namespace CampusLove_hadassa_dylan.src.Shared.Context
                 entity.HasKey(e => e.Id);
                 entity.HasIndex(e => new { e.Usuario1Id, e.Usuario2Id }).IsUnique();
                 
-                entity.HasOne(e => e.Usuario1)
-                      .WithMany(e => e.MatchesComoUsuario1)
-                      .HasForeignKey(e => e.Usuario1Id)
-                      .OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(e => e.Usuario1)   // ✅ no Usuario1Id
+                    .WithMany(e => e.MatchesComoUsuario1)
+                    .HasForeignKey(e => e.Usuario1Id)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasOne(e => e.Usuario2)
-                      .WithMany(e => e.MatchesComoUsuario2)
-                      .HasForeignKey(e => e.Usuario2Id)
-                      .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.Usuario2)   // ✅ no Usuario2Id
+                    .WithMany(e => e.MatchesComoUsuario2)
+                    .HasForeignKey(e => e.Usuario2Id)
+                    .OnDelete(DeleteBehavior.Restrict);
+
 
                 // Verificar que los usuarios del match sean diferentes
                 entity.HasCheckConstraint("CK_Match_DifferentUsers", "usuario1_id != usuario2_id");

@@ -6,7 +6,7 @@ namespace CampusLove_hadassa_dylan.src.Modules.Interacciones.Domain.Factories
     {
         public static Interaccion Create(int usuarioId, int targetId, TipoInteraccion tipo)
         {
-            return new Interaccion { UsuarioId = usuarioId, TargetId = targetId, Tipo = tipo };
+            return new Interaccion { UsuarioId = usuarioId, UsuarioObjetivoId = targetId, Tipo = tipo };
         }
     }
 }
