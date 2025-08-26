@@ -1,9 +1,7 @@
--- Creación de la base de datos
 DROP DATABASE IF EXISTS campus_love;
 CREATE DATABASE IF NOT EXISTS campus_love;
 USE campus_love;
 
--- Tabla de usuarios (CON AUTO_INCREMENT)
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipo_documento ENUM('CC', 'CE', 'TI', 'Pasaporte', 'Otro') NOT NULL,
@@ -20,18 +18,15 @@ CREATE TABLE usuarios (
     activo BOOLEAN DEFAULT TRUE
 );
 
--- Tabla de usuarios y contraseñas (YA TIENE AUTO_INCREMENT)
 CREATE TABLE usuario_contrasenas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL UNIQUE,
-    contrasena VARCHAR(255) NOT NULL,
-    salt VARCHAR(255), 
+    contrasena VARCHAR(255) NOT NULL, -- Solo string plano
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
--- Tabla de intereses de usuarios (CORREGIDA - estaba duplicada)
 CREATE TABLE usuario_intereses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
@@ -40,7 +35,6 @@ CREATE TABLE usuario_intereses (
     UNIQUE KEY unique_user_interest (usuario_id, interes)
 );
 
--- Tabla de interacciones (likes y dislikes)
 CREATE TABLE interacciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
@@ -50,12 +44,9 @@ CREATE TABLE interacciones (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (usuario_objetivo_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     UNIQUE KEY unique_interaction (usuario_id, usuario_objetivo_id),
-    CHECK (usuario_id != usuario_objetivo_id) 
-    UNIQUE KEY unique_interaction (usuario_id, usuario_objetivo_id),
-    CHECK (usuario_id != usuario_objetivo_id) 
+    CHECK (usuario_id != usuario_objetivo_id)
 );
 
--- Tabla de matches
 CREATE TABLE matches (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario1_id INT NOT NULL,
@@ -69,7 +60,6 @@ CREATE TABLE matches (
     CHECK (usuario1_id != usuario2_id)
 );
 
--- Índices adicionales para mejorar performance
 CREATE INDEX idx_usuarios_activo ON usuarios(activo);
 CREATE INDEX idx_usuarios_carrera ON usuarios(carrera);
 CREATE INDEX idx_usuarios_edad ON usuarios(edad);

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using CampusLove_hadassa_dylan.src.Modules.Users.Domain.Entities;
 using CampusLove_hadassa_dylan.src.Modules.Interacciones.Domain.Entities;
 using CampusLove_hadassa_dylan.src.Modules.Matches.Domain.Entities;
+using CampusLove_hadassa_dylan.src.Modules.UsuarioContraseñas.Domain.Entities;
 
 namespace CampusLove_hadassa_dylan.src.Shared.Context
 {
@@ -12,10 +13,10 @@ namespace CampusLove_hadassa_dylan.src.Shared.Context
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<UsuarioContraseña> UsuarioContraseñas { get; set; }
         public DbSet<UsuarioInteres> UsuarioIntereses { get; set; }
         public DbSet<Interaccion> Interacciones { get; set; }
         public DbSet<Match> Matches { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -45,7 +46,13 @@ namespace CampusLove_hadassa_dylan.src.Shared.Context
                       .HasForeignKey(e => e.UsuarioObjetivoId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
-
+            // Configuración UsuarioContraseña
+            modelBuilder.Entity<UsuarioContraseña>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.HasIndex(e => e.UsuarioId).IsUnique();
+                entity.Property(e => e.Contraseña).IsRequired().HasMaxLength(255);
+            });
             // Configuración de UsuarioInteres
             modelBuilder.Entity<UsuarioInteres>(entity =>
             {
@@ -55,12 +62,12 @@ namespace CampusLove_hadassa_dylan.src.Shared.Context
             });
 
             // Configuración de Interaccion
-            modelBuilder.Entity<Interaccion>(entity =>
+            modelBuilder.Entity<Interaccion>( entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.HasIndex(e => new { e.UsuarioId, e.UsuarioObjetivoId }).IsUnique();
                 entity.Property(e => e.TipoInteraccion).HasConversion<string>();
-                
+
                 // Verificar que usuario no interactúe consigo mismo
                 entity.HasCheckConstraint("CK_Interaccion_DifferentUsers", "usuario_id != usuario_objetivo_id");
             });
