@@ -14,4 +14,5 @@ namespace CampusLove_hadassa_dylan.src.Modules.UsuarioContraseñas.Domain.Entiti
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
         public DateTime FechaActualizacion { get; set; } = DateTime.Now;
     }
+    
 }
